@@ -1,0 +1,77 @@
+﻿@page "/ok"
+@using System.Diagnostics
+@inject NavigationManager NavigationManager
+@layout Shared.MenuLayout
+
+<div class="my-component">
+    This component is defined in the <strong>RazorClassLibrary1</strong> library.
+    <br />
+    @(BusinessClassLibrary1.Class1.ObtemDiretiva().Result.ToString())
+    <br />
+    @*<input type="file" multiple="multiple">
+    <input type="file" name="file" accept="image/*" capture="user" />
+    *@
+    <!--
+        Comentário HTML
+    -->
+    @* 
+        Comentário .NET
+    *@
+    <input type="button" value="Buscar Produtores" @onclick="BuscarProdutores" />
+    @qtd
+    @mensagem
+    @*
+    @if (r is not null)
+    {
+        @foreach (var m in r)
+        {
+            @m.DataHora
+            @m.Texto
+            <hr />
+        }
+    }
+    *@
+</div>
+
+@code
+{
+    int qtd { get; set; }
+    string mensagem { get; set; }
+
+    BusinessClassLibrary1.Mensagem[] r { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.CompletedTask;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.CompletedTask;
+
+        if (firstRender)
+        {
+            var uri = NavigationManager.Uri;
+            Debug.WriteLine(uri);
+            //var SessionCode = NavigationManager.GetQueryValue("SessionCode");
+        }
+    }
+
+    public async Task BuscarProdutores()
+    {
+        try
+        {
+            this.r = await BusinessClassLibrary1.Class1.BuscaProdutores();
+
+            qtd = r.Count();
+        }
+        catch(Exception ex)
+        {
+            mensagem = ex.ToString();
+        }
+        finally
+        {
+            this.StateHasChanged();
+
+        }
+    }
+}

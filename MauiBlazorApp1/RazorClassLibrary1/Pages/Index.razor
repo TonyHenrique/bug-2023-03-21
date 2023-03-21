@@ -1,0 +1,60 @@
+﻿@page "/"
+@using System.Diagnostics
+
+<PageTitle>Index</PageTitle>
+
+<h1>BRF</h1>
+@*<br />
+Foto:
+<input type="file" accept="image/*" capture="camera">*@
+
+<br />
+Welcome to your new app.
+
+<br />
+<input type="button"  />
+
+<br />
+<SurveyPrompt Title="How is Microsoft ASP.NET Blazor Hybrid working for you?" />
+
+<a href="/ok">/ok</a>
+
+<RazorClassLibrary1.Pages.Component1></RazorClassLibrary1.Pages.Component1>
+
+<RazorClassLibrary1.Pages.Florestal.Carlos Titulo="Olá!">
+
+</RazorClassLibrary1.Pages.Florestal.Carlos>
+
+<br />
+<div style="display:flex; flex-wrap: wrap; flex-direction:row; height:150px; width:100%;">
+    <Card Valor="1.2m"></Card>
+    <Card Valor="3.4m"></Card>
+    <Card Valor="5.6m"></Card>
+</div>
+
+@t("abc.def.ede")
+
+<h3>OK</h3>
+<h2>@lang</h2>
+
+@code
+{
+    public string lang { get; set; }
+
+    public string t(string text)
+    {
+        return "";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var agora = DateTime.Now;
+        //var p = agora.AddDays(7).Date;
+
+        this.lang = Thread.CurrentThread.CurrentCulture.ToString(); // .TwoLetterISOLanguageName;
+
+        this.StateHasChanged();
+        Debug.WriteLine(lang);
+    }
+
+}
